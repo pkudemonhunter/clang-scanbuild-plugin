@@ -100,7 +100,7 @@ public class ClangScanBuildDescriptor extends BuildStepDescriptor<Builder>{
     }
 
     public boolean isApplicable( @SuppressWarnings("rawtypes") Class<? extends AbstractProject> jobType ){
-        return FreeStyleProject.class.isAssignableFrom( jobType );
+        return AbstractProject.class.isAssignableFrom( jobType );
     }
     
 }
