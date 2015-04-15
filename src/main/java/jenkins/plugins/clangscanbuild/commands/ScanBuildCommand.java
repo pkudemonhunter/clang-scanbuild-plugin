@@ -24,6 +24,7 @@ public class ScanBuildCommand implements Command{
 	
 	public int execute( BuildContext context ) throws Exception {
 
+		context.log( "begin to run execute()." );
 		if( clangOutputFolder.exists() ){
 			// this should never happen because this folder is in the build directory - famous last words
 			context.log( "Deleting '" + getClangOutputFolder().getRemote() + "' contents from previous build." );
@@ -87,6 +88,16 @@ public class ScanBuildCommand implements Command{
 			// which ends up reinserting the spaces when the command is assembled.
 			args.addTokenized( additionalXcodeBuildArgs );
 		}
+		args.clear();
+		args.add( getClangScanBuildPath() );
+
+		// args.add( "-k" ); // keep going on failure
+		args.add( "-v" ); // verbose
+		args.add( "-v" ); // even more verbose
+		
+		args.add( "-o" ); // output folder
+		args.add( escapeSpacesInPath( clangOutputFolder.getRemote() ) );
+		args.add( getTarget() );
 
 		int rc = context.waitForProcess( getProjectDirectory(), args );
 
