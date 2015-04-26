@@ -101,5 +101,9 @@
       </plugin>
     </plugins>
   </reporting>
+
+  <properties>
+    <concurrency>1</concurrency>
+  </properties>
   
 </project>
